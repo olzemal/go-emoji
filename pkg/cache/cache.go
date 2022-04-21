@@ -11,19 +11,19 @@ import (
 	"golang.org/x/net/html"
 )
 
-type cache map[string]string
+type Cache map[string]string
 
 const (
 	emojiUrl = "https://unicode.org/emoji/charts/full-emoji-list.html"
 )
 
-func Generate() (cache, error) {
+func Generate() (Cache, error) {
 	resp, err := http.Get(emojiUrl)
 	if err != nil {
 		return nil, err
 	}
 
-	c := make(cache)
+	c := make(Cache)
 	z := html.NewTokenizer(resp.Body)
 	end := false
 	for !end {
@@ -63,7 +63,7 @@ func Generate() (cache, error) {
 	return c, nil
 }
 
-func Import(path string) (cache, error) {
+func Import(path string) (Cache, error) {
 	if !util.CanReadFrom(path) {
 		return nil, fmt.Errorf("Invalid path: `%s`", path)
 	}
@@ -79,7 +79,7 @@ func Import(path string) (cache, error) {
 	}
 
 	lines := strings.Split(string(bytes), "\n")
-	c := make(cache)
+	c := make(Cache)
 	for _, line := range lines {
 		pair := strings.SplitN(line, "=", 2)
 		if len(pair) == 2 {
@@ -90,7 +90,7 @@ func Import(path string) (cache, error) {
 	return c, nil
 }
 
-func Export(cacheFile *os.File, cache *cache) error {
+func Export(cacheFile *os.File, cache *Cache) error {
 	for key, val := range *cache {
 		fmt.Fprintf(cacheFile, "%s=%s\n", key, val)
 	}
