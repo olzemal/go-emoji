@@ -1,4 +1,4 @@
-package emoji
+package cache
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	util "github.com/olzemal/lsemoji/util"
+	util "github.com/olzemal/lsemoji/pkg/util"
 	"golang.org/x/net/html"
 )
 
@@ -17,7 +17,7 @@ const (
 	emojiUrl = "https://unicode.org/emoji/charts/full-emoji-list.html"
 )
 
-func GenerateCache() (cache, error) {
+func Generate() (cache, error) {
 	resp, err := http.Get(emojiUrl)
 	if err != nil {
 		return nil, err
@@ -63,7 +63,7 @@ func GenerateCache() (cache, error) {
 	return c, nil
 }
 
-func ImportCache(path string) (cache, error) {
+func Import(path string) (cache, error) {
 	if !util.CanReadFrom(path) {
 		return nil, fmt.Errorf("Invalid path: `%s`", path)
 	}
@@ -90,13 +90,9 @@ func ImportCache(path string) (cache, error) {
 	return c, nil
 }
 
-func ExportCache(path string, cache cache) error {
-	for key, val := range cache {
-		fmt.Printf("%s=%s\n", key, val)
+func Export(cacheFile *os.File, cache *cache) error {
+	for key, val := range *cache {
+		fmt.Fprintf(cacheFile, "%s=%s\n", key, val)
 	}
 	return nil
-}
-
-func FromString(name string) (string, error) {
-	return "", nil
 }
