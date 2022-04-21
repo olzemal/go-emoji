@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	emoji "github.com/olzemal/lsemoji"
+	cache "github.com/olzemal/lsemoji/pkg/cache"
 )
 
 const (
@@ -19,7 +19,7 @@ func main() {
 	cacheDirPath := home + "/.cache/lsemoji"
 	initCache(cacheDirPath)
 
-	cache, err := emoji.ImportCache(cacheDirPath + "/" + cacheFileName)
+	cache, err := cache.Import(cacheDirPath + "/" + cacheFileName)
 	if err != nil {
 		panic(fmt.Errorf("Emoji.ImportCache: %v", err))
 	}
@@ -29,7 +29,7 @@ func main() {
 			fmt.Printf("%s=%s\n", key, value)
 		}
 	} else {
-
+		fmt.Println(os.Args[1])
 	}
 }
 
@@ -45,7 +45,7 @@ func initCache(cacheDirPath string) {
 	_, err := os.Stat(cacheFilePath)
 	cacheFilePresent := err == nil
 	if !cacheFilePresent {
-		cache, err := emoji.GenerateCache()
+		c, err := cache.Generate()
 		if err != nil {
 			panic(fmt.Errorf("emoji.GenerateCache: %v", err))
 		}
@@ -54,6 +54,6 @@ func initCache(cacheDirPath string) {
 			panic(fmt.Errorf("os.Create: %v", err))
 		}
 		defer cacheFile.Close()
-		emoji.ExportCache(cacheFile, &cache)
+		cache.Export(cacheFile, &c)
 	}
 }
