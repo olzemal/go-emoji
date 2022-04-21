@@ -10,11 +10,18 @@ func Format(s string) string {
 		strings.ToLower(
 			strings.ReplaceAll(s, " ", "_")))
 
-	reg, err := regexp.Compile("[^a-zA-Z0-9_]+")
+	nonAlNum, err := regexp.Compile("[^a-zA-Z0-9_]+")
 	if err != nil {
 		panic(err)
 	}
-	n = reg.ReplaceAllString(n, "")
+
+	consecutiveUnder, err := regexp.Compile("_{2,}")
+	if err != nil {
+		panic(err)
+	}
+
+	n = nonAlNum.ReplaceAllString(n, "")
+	n = consecutiveUnder.ReplaceAllString(n, "_")
 	n = strings.Trim(n, "_")
 	return n
 }
