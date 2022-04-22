@@ -1,7 +1,6 @@
 package query_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/olzemal/lsemoji/pkg/cache"
@@ -12,32 +11,35 @@ func TestSearch(t *testing.T) {
 	c1 := cache.Cache{
 		"smile": "😊",
 	}
+	c2 := cache.Cache{
+		"smile":     "😊",
+		"cat_smile": "😼",
+	}
 	tests := []struct {
 		c cache.Cache
 		q string
-		r []string
+		r map[string]string
 	}{
-		{c: c1, q: "smile", r: []string{"😊"}},
+		{c: c1, q: "smile", r: map[string]string{"smile": "😊"}},
+		{c: c2, q: "smile", r: map[string]string{"smile": "😊", "cat_smile": "😼"}},
 	}
 
 	for _, test := range tests {
-		r := query.Search(test.q, test.c)
-		fmt.Println(r)
-		if !ExactMatch(r, test.r) {
+		r := query.FilterContains(test.c, test.q)
+		if !EqualMaps[string](r, test.r) {
 			t.Errorf("Got: `%v`, Want; `%v`", r, test.r)
 		}
 	}
 }
 
-func ExactMatch(a, b []string) bool {
+func EqualMaps[T comparable](a, b map[T]T) bool {
 	if len(a) != len(b) {
 		return false
 	}
-	for i, _ := range a {
-		if a[i] != b[i] {
+	for k, _ := range a {
+		if a[k] != b[k] {
 			return false
 		}
 	}
-
 	return true
 }
