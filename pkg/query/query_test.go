@@ -3,8 +3,8 @@ package query_test
 import (
 	"testing"
 
-	"github.com/olzemal/lsemoji/pkg/cache"
-	"github.com/olzemal/lsemoji/pkg/query"
+	"github.com/olzemal/go-emoji/pkg/cache"
+	"github.com/olzemal/go-emoji/pkg/query"
 )
 
 func TestSearch(t *testing.T) {

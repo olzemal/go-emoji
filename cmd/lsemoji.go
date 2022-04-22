@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	cache "github.com/olzemal/lsemoji/pkg/cache"
-	"github.com/olzemal/lsemoji/pkg/query"
+	cache "github.com/olzemal/go-emoji/pkg/cache"
+	"github.com/olzemal/go-emoji/pkg/query"
 )
 
 const (
@@ -17,7 +17,7 @@ func main() {
 	if err != nil {
 		panic(fmt.Errorf("os.UserHomeDir: %v", err))
 	}
-	cacheDirPath := home + "/.cache/lsemoji"
+	cacheDirPath := home + "/.cache/go-emoji"
 	initCache(cacheDirPath)
 
 	c, err := cache.Import(cacheDirPath + "/" + cacheFileName)

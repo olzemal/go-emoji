@@ -3,7 +3,7 @@ package util_test
 import (
 	"testing"
 
-	"github.com/olzemal/lsemoji/pkg/util"
+	"github.com/olzemal/go-emoji/pkg/util"
 )
 
 func TestFormat(t *testing.T) {

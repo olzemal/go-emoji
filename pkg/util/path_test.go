@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/olzemal/lsemoji/pkg/util"
+	"github.com/olzemal/go-emoji/pkg/util"
 )
 
 const (
@@ -35,7 +35,7 @@ func TestReadFrom(t *testing.T) {
 }
 
 func SetupTestTmp() string {
-	path, err := os.MkdirTemp("/tmp", "lsemoji_util_test_")
+	path, err := os.MkdirTemp("/tmp", "go-emoji_util_test_")
 	if err != nil {
 		panic(fmt.Errorf("SetupTestTemp: %v", err))
 	}

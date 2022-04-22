@@ -3,7 +3,7 @@ package cache_test
 import (
 	"testing"
 
-	cache "github.com/olzemal/lsemoji/pkg/cache"
+	cache "github.com/olzemal/go-emoji/pkg/cache"
 )
 
 func TestGenerateCache(t *testing.T) {

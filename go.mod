@@ -1,4 +1,4 @@
-module github.com/olzemal/lsemoji
+module github.com/olzemal/go-emoji
 
 go 1.18
 

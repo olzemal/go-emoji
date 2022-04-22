@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	util "github.com/olzemal/lsemoji/pkg/util"
+	util "github.com/olzemal/go-emoji/pkg/util"
 	"golang.org/x/net/html"
 )
 
