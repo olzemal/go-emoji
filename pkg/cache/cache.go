@@ -14,7 +14,8 @@ import (
 type Cache map[string]string
 
 const (
-	emojiUrl = "https://unicode.org/emoji/charts/full-emoji-list.html"
+	emojiUrl      = "https://unicode.org/emoji/charts/full-emoji-list.html"
+	cacheFileName = "cache"
 )
 
 func Generate() (Cache, error) {
@@ -95,4 +96,29 @@ func Export(cacheFile *os.File, cache *Cache) error {
 		fmt.Fprintf(cacheFile, "%s=%s\n", key, val)
 	}
 	return nil
+}
+
+func Init(dir string) string {
+	if _, err := os.Stat(dir); err != nil {
+		err := os.Mkdir(dir, 0755)
+		if err != nil {
+			panic(fmt.Errorf("Mkdir: %v", err))
+		}
+	}
+	cacheFilePath := dir + "/" + cacheFileName
+	_, err := os.Stat(cacheFilePath)
+	cacheFilePresent := err == nil
+	if !cacheFilePresent {
+		c, err := Generate()
+		if err != nil {
+			panic(fmt.Errorf("emoji.GenerateCache: %v", err))
+		}
+		cacheFile, err := os.Create(cacheFilePath)
+		if err != nil {
+			panic(fmt.Errorf("os.Create: %v", err))
+		}
+		defer cacheFile.Close()
+		Export(cacheFile, &c)
+	}
+	return cacheFilePath
 }
