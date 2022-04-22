@@ -5,6 +5,7 @@ import (
 	"os"
 
 	cache "github.com/olzemal/lsemoji/pkg/cache"
+	"github.com/olzemal/lsemoji/pkg/query"
 )
 
 const (
@@ -19,17 +20,16 @@ func main() {
 	cacheDirPath := home + "/.cache/lsemoji"
 	initCache(cacheDirPath)
 
-	cache, err := cache.Import(cacheDirPath + "/" + cacheFileName)
+	c, err := cache.Import(cacheDirPath + "/" + cacheFileName)
 	if err != nil {
 		panic(fmt.Errorf("Emoji.ImportCache: %v", err))
 	}
 
-	if len(os.Args) < 2 {
-		for key, value := range cache {
-			fmt.Printf("%s=%s\n", key, value)
-		}
-	} else {
-		fmt.Println(os.Args[1])
+	if len(os.Args) > 1 {
+		c = query.FilterContains(c, os.Args[1])
+	}
+	for key, value := range c {
+		fmt.Printf("%s=%s\n", key, value)
 	}
 }
 
