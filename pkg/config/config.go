@@ -37,11 +37,12 @@ func (c Config) EmojiFromAlias(alias string) string {
 			}
 		}
 	}
+	return ""
 }
 
 func LoadFile(path string) (Config, error) {
 	if !util.CanReadFrom(path) {
-		return fmt.Errorf("Cannot read from path `%v`.", path)
+		return Config{}, fmt.Errorf("Cannot read from path `%v`.", path)
 	}
 	f, _ := os.Open(path)
 	defer f.Close()
