@@ -1,5 +1,60 @@
 aliases:
-- emoji: slightly_smiling_face
-  names:
-  - smile
-  - ":)"
+# Faces
+- emoji: grinning_squinting_face
+  names: ["XD"]
+- emoji: face_with_tears_of_joy
+  names: ["X'D"]
+- emoji: squinting_face_with_tongue
+  names: ["XP"]
+- emoji: face_with_tongue
+  names: [":P"]
+- emoji: winking_face
+  names: [";)"]
+- emoji: smiling_face_with_smiling_eyes
+  names: ["^^"]
+- emoji: smiling_face
+  names: ["smile", ":)"]
+- emoji: frowning_face
+  names: ["frown", ":("]
+- emoji: rolling_on_the_floor_laughing
+  names: ["rofl"]
+- emoji: expressionless_face
+  names: ["-_-"]
+
+# Symbols
+- emoji: double_exclamation_mark
+  names: ["!!"]
+- emoji: red_exclamation_mark
+  names: ["!"]
+- emoji: exclamation_question_mark
+  names: ["!?", "?!"]
+- emoji: cross_mark
+  names: ["X"]
+- emoji: check_mark
+  names: ["y", "/"]
+- emoji: hundred_points
+  names: ["100"]
+
+# Pointing
+- emoji: backhand_index_pointing_up
+  names: ["point_up"]
+- emoji: backhand_index_pointing_down
+  names: ["point_down"]
+- emoji: backhand_index_pointing_left
+  names: ["point_left"]
+- emoji: backhand_index_pointing_right
+  names: ["point_right"]
+
+# Misc
+- emoji: three_oclock
+  names: ["clock"]
+- emoji: carpentry_saw
+  names: ["saw"]
+- emoji: headstone
+  names: ["gravestone"]
+- emoji: open_mailbox_with_raised_flag
+  names: ["mailbox"]
+- emoji: magnifying_glass_tilted_right
+  names: ["magnifying_glass"]
+- emoji: globe_showing_europeafrica
+  names: ["globe"]

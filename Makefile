@@ -1,8 +1,11 @@
-INSTALL_DIR = ${HOME}/.local/bin/
+INSTALLDIR = ${HOME}/.local/bin
+CONFIGDIR = ${HOME}/.config/go-emoji
+
+.PHONY: test config install
 
 install: lsemoji toemoji
-	mv ./lsemoji ${INSTALL_DIR}
-	mv ./toemoji ${INSTALL_DIR}
+	mv ./lsemoji ${INSTALLDIR}/
+	mv ./toemoji ${INSTALLDIR}/
 
 lsemoji:
 	go build -o ./lsemoji cmd/lsemoji/lsemoji.go
@@ -13,3 +16,8 @@ toemoji:
 test:
 	go test ./...
 
+config: ${CONFIGDIR}
+	cp ./opt/config.yaml ${CONFIGDIR}
+
+${CONFIGDIR}:
+	mkdir -p ${CONFIGDIR}

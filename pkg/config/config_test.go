@@ -13,8 +13,8 @@ func TestLoadAlias(t *testing.T) {
 		O string
 	}{
 		{I: "", O: ""},
-		{I: "smile", O: "slightly_smiling_face"},
-		{I: ":)", O: "slightly_smiling_face"},
+		{I: "smile", O: "smiling_face"},
+		{I: ":)", O: "smiling_face"},
 	}
 	for _, test := range tests {
 		got := cfg.EmojiFromAlias(test.I)
