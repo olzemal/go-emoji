@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/olzemal/go-emoji/pkg/cache"
+	"github.com/olzemal/go-emoji/pkg/config"
 )
 
 func main() {
@@ -17,10 +18,16 @@ func main() {
 	}
 	cacheDirPath := home + "/.cache/go-emoji"
 	cacheFilePath := cache.Init(cacheDirPath)
+	configFilePath := home + "/.config/go-emoji/config.yaml"
 
 	c, err := cache.Import(cacheFilePath)
 	if err != nil {
-		panic(fmt.Errorf("Emoji.ImportCache: %v", err))
+		panic(fmt.Errorf("cache.Import: %v", err))
+	}
+
+	cfg, err := config.LoadFile(configFilePath)
+	if err != nil {
+		panic(fmt.Errorf("config.LoadFile: %v", err))
 	}
 
 	stdin := bufio.NewScanner(os.Stdin)
@@ -28,7 +35,12 @@ func main() {
 	for stdin.Scan() {
 		line := stdin.Text()
 		replaced := emoji.ReplaceAllStringFunc(line, func(match string) string {
-			e, ok := c[strings.Trim(match, ":")]
+			name := strings.Trim(match, ":")
+			s := cfg.EmojiFromAlias(name)
+			if len(s) == 0 {
+				s = name
+			}
+			e, ok := c[s]
 			if !ok {
 				return match
 			}
