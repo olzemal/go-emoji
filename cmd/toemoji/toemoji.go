@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"regexp"
-	"strings"
 
 	"github.com/olzemal/go-emoji/pkg/cache"
 	"github.com/olzemal/go-emoji/pkg/config"
@@ -31,11 +30,11 @@ func main() {
 	}
 
 	stdin := bufio.NewScanner(os.Stdin)
-	emoji, _ := regexp.Compile("\\:[a-z_]+\\:")
+	emoji, _ := regexp.Compile("\\:.+\\:")
 	for stdin.Scan() {
 		line := stdin.Text()
 		replaced := emoji.ReplaceAllStringFunc(line, func(match string) string {
-			name := strings.Trim(match, ":")
+			name := (match[1:])[:len(match)-2]
 			s := cfg.EmojiFromAlias(name)
 			if len(s) == 0 {
 				s = name
